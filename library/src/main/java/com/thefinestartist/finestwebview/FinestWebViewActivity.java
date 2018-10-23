@@ -32,6 +32,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.webkit.CookieManager;
 import android.webkit.DownloadListener;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -177,6 +178,7 @@ public class FinestWebViewActivity extends AppCompatActivity
   protected String webViewAppCachePath;
   protected Boolean webViewDatabaseEnabled;
   protected Boolean webViewDomStorageEnabled;
+  protected Boolean webViewCrossDomainCookieEnabled;
   protected Boolean webViewGeolocationEnabled;
   protected Boolean webViewJavaScriptCanOpenWindowsAutomatically;
   protected String webViewDefaultTextEncodingName;
@@ -417,6 +419,8 @@ public class FinestWebViewActivity extends AppCompatActivity
     webViewDatabaseEnabled = builder.webViewDatabaseEnabled;
     webViewDomStorageEnabled =
         builder.webViewDomStorageEnabled != null ? builder.webViewDomStorageEnabled : true;
+    webViewCrossDomainCookieEnabled =
+            builder.webViewCrossDomainCookieEnabled != null ? builder.webViewCrossDomainCookieEnabled : true;
     webViewGeolocationEnabled = builder.webViewGeolocationEnabled;
     webViewJavaScriptCanOpenWindowsAutomatically =
         builder.webViewJavaScriptCanOpenWindowsAutomatically;
@@ -743,6 +747,11 @@ public class FinestWebViewActivity extends AppCompatActivity
       }
       if (webViewDomStorageEnabled != null) {
         settings.setDomStorageEnabled(webViewDomStorageEnabled);
+      }
+      if (webViewCrossDomainCookieEnabled != null) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+          CookieManager.getInstance().setAcceptThirdPartyCookies(webView, webViewCrossDomainCookieEnabled);
+        }
       }
       if (webViewGeolocationEnabled != null) {
         settings.setGeolocationEnabled(webViewGeolocationEnabled);

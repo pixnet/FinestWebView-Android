@@ -148,6 +148,7 @@ public class FinestWebView {
     protected String webViewAppCachePath;
     protected Boolean webViewDatabaseEnabled;
     protected Boolean webViewDomStorageEnabled;
+    protected Boolean webViewCrossDomainCookieEnabled;
     protected Boolean webViewGeolocationEnabled;
     protected Boolean webViewJavaScriptCanOpenWindowsAutomatically;
     protected String webViewDefaultTextEncodingName;
@@ -833,6 +834,11 @@ public class FinestWebView {
 
     public Builder webViewDomStorageEnabled(boolean webViewDomStorageEnabled) {
       this.webViewDomStorageEnabled = webViewDomStorageEnabled;
+      return this;
+    }
+
+    public Builder webViewCrossDomainCookieEnabled(boolean webViewCrossDomainCookieEnabled) {
+      this.webViewCrossDomainCookieEnabled = webViewCrossDomainCookieEnabled;
       return this;
     }
 
